@@ -1,7 +1,7 @@
 {
-  "versionCode": 3,
-  "versionName": "3.0-avaliacao",
-  "apkUrl": "https://github.com/eerickwrld/SAP_ALCAST_2026_02/releases/latest/download/app-debug.apk",
-  "releaseNotes": "Versão com suporte a Auto-Update via Vercel e GitHub Releases.",
+  "versionCode": 4,
+  "versionName": "3.1-teste-auto-update",
+  "apkUrl": "https://github.com/eerickwrld/SAP_ALCAST_2026_02/releases/download/v3.1/app-debug.apk",
+  "releaseNotes": "Ajuste na escala de texto Extra Grande para 145%. Teste do Auto-Update OTA.",
   "forceUpdate": false
 }
