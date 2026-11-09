@@ -336,6 +336,6 @@ class AppUpdateManager(private val activity: Activity) {
         /**
          * URL do arquivo `version.json` hospedado na Vercel.
          */
-        const val UPDATE_JSON_URL = "https://sap-alcast.vercel.app/version.json"
+        const val UPDATE_JSON_URL = "https://sapalcast2026.vercel.app/version.json"
     }
 }
