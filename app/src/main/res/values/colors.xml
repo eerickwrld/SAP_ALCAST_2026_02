@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="sap_green">#23884A</color>
+    <color name="sap_gold">#E8B622</color>
+    <color name="header_bg">#19232D</color>
+    <color name="container_bg">#151E27</color>
+    <color name="tab_active_bg">#23884A</color>
+    <color name="tab_active_text">#FFFFFF</color>
+    <color name="tab_inactive_bg">#253240</color>
+    <color name="tab_inactive_text">#90A4AE</color>
+</resources>

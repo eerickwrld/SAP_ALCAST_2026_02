@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SAP ALCAST • Portal de Instalação e Atualização</title>
+  <style>
+    :root {
+      --primary: #005696;
+      --primary-dark: #003a66;
+      --bg: #f4f6f9;
+      --card: #ffffff;
+      --text: #1e293b;
+      --subtext: #64748b;
+      --accent: #10b981;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .card {
+      background: var(--card);
+      max-width: 480px;
+      width: 100%;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      padding: 32px 24px;
+      text-align: center;
+    }
+    .logo-badge {
+      display: inline-block;
+      background: #e0f2fe;
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 1px;
+      padding: 6px 14px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-size: 24px;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    p.desc {
+      color: var(--subtext);
+      font-size: 14px;
+      line-height: 1.5;
+      margin-bottom: 24px;
+    }
+    .version-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+    .version-item {
+      display: flex;
+      flex-direction: column;
+    }
+    .version-item span:first-child {
+      font-size: 11px;
+      text-transform: uppercase;
+      color: var(--subtext);
+      font-weight: 600;
+    }
+    .version-item span:last-child {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--primary);
+    }
+    .btn-download {
+      display: block;
+      width: 100%;
+      background: var(--primary);
+      color: #fff;
+      font-size: 16px;
+      font-weight: 600;
+      text-decoration: none;
+      padding: 16px 20px;
+      border-radius: 10px;
+      transition: background 0.2s, transform 0.1s;
+      margin-bottom: 14px;
+      box-shadow: 0 4px 12px rgba(0, 86, 150, 0.25);
+    }
+    .btn-download:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+    .btn-download:active {
+      transform: translateY(0);
+    }
+    .note {
+      font-size: 12px;
+      color: var(--subtext);
+      line-height: 1.4;
+    }
+    .status-indicator {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      margin-right: 6px;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="logo-badge">ALCAST DO BRASIL</div>
+    <h1>SAP ALCAST Mobile</h1>
+    <p class="desc">Instalador oficial para coletores de dados e dispositivos Android com SAP ITS Mobile.</p>
+
+    <div class="version-box">
+      <div class="version-item">
+        <span>Versão</span>
+        <span id="versionName">3.0</span>
+      </div>
+      <div class="version-item">
+        <span>Status</span>
+        <span style="color: var(--accent);"><span class="status-indicator"></span>Ativo</span>
+      </div>
+      <div class="version-item">
+        <span>Build</span>
+        <span id="versionCode">v3</span>
+      </div>
+    </div>
+
+    <a id="downloadBtn" href="#" class="btn-download">
+      📥 Baixar APK Oficial
+    </a>
+
+    <p class="note">Após o download, toque no arquivo baixado para instalar.<br>Novas versões serão instaladas automaticamente pelo próprio aplicativo.</p>
+  </div>
+
+  <script>
+    fetch('/version.json?t=' + Date.now())
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById('versionName').textContent = data.versionName || '3.0';
+        document.getElementById('versionCode').textContent = 'v' + data.versionCode;
+        if (data.apkUrl) {
+          document.getElementById('downloadBtn').href = data.apkUrl;
+        }
+      })
+      .catch(err => console.log('Erro ao carregar version.json', err));
+  </script>
+</body>
+</html>

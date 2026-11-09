@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#101820">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="56dp"
+        android:padding="5dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:background="#19232D">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="SAP ALCAST •  2026"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="#FFFFFF"
+            android:paddingStart="10dp" />
+
+        <Button
+            android:id="@+id/btnReload"
+            style="@style/ColetorTab"
+            android:layout_width="52dp"
+            android:layout_height="44dp"
+            android:text="⟳"
+            android:textSize="22sp"
+            android:backgroundTint="#2B3846"
+            android:textColor="#FFFFFF"
+            android:contentDescription="Recarregar SAP" />
+
+        <Button
+            android:id="@+id/btnMenu"
+            style="@style/ColetorTab"
+            android:layout_width="52dp"
+            android:layout_height="44dp"
+            android:text="☰"
+            android:textSize="22sp"
+            android:backgroundTint="#2B3846"
+            android:textColor="#FFFFFF"
+            android:contentDescription="Abrir menu" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingStart="4dp"
+        android:paddingEnd="4dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="4dp"
+        android:background="#151E27">
+
+        <Button
+            android:id="@+id/btnTab1"
+            style="@style/ColetorTab"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_weight="1"
+            android:text="@string/tab_1"
+            android:textSize="14sp"
+            android:backgroundTint="#23884A"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:id="@+id/btnTab2"
+            style="@style/ColetorTab"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_weight="1"
+            android:text="@string/tab_2"
+            android:textSize="14sp"
+            android:backgroundTint="#253240"
+            android:textColor="#90A4AE" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#FFFFFF">
+
+        <WebView
+            android:id="@+id/sapWebView1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible" />
+
+        <WebView
+            android:id="@+id/sapWebView2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+
+        <ProgressBar
+            android:id="@+id/loadingIndicator"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_gravity="top"
+            android:indeterminate="true"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/errorPanel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="20dp"
+            android:visibility="gone"
+            android:background="#F7F8FA">
+
+            <TextView
+                android:id="@+id/errorText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Não foi possível carregar o SAP."
+                android:textColor="#263747"
+                android:textSize="17sp"
+                android:gravity="center"
+                android:padding="10dp" />
+
+            <Button
+                android:id="@+id/btnRetry"
+                style="@style/ColetorAction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TENTAR NOVAMENTE"
+                android:backgroundTint="#23884A" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/txtStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="30dp"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
+        android:text="SAP • Conectando..."
+        android:textSize="12sp"
+        android:textColor="#294154"
+        android:background="#E9EEF2" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="76dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="6dp"
+        android:background="#19232D">
+
+        <Button
+            android:id="@+id/btnVoltar"
+            style="@style/ColetorAction"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="62dp"
+            android:text="◀  VOLTAR"
+            android:backgroundTint="#45515E" />
+
+        <Button
+            android:id="@+id/btnConfirmar"
+            style="@style/ColetorAction"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="62dp"
+            android:text="✓  CONFIRMAR"
+            android:backgroundTint="#23884A" />
+    </LinearLayout>
+</LinearLayout>

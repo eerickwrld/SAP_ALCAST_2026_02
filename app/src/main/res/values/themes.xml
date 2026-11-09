@@ -1,0 +1,30 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Base.Theme.SAP" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">#E8B622</item>
+        <item name="android:statusBarColor">#101820</item>
+        <item name="android:navigationBarColor">#101820</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+    <style name="Theme.SAP" parent="Base.Theme.SAP" />
+    <style name="ColetorTab" parent="Widget.MaterialComponents.Button">
+        <item name="android:layout_height">52dp</item>
+        <item name="android:minHeight">52dp</item>
+        <item name="android:layout_margin">3dp</item>
+        <item name="android:padding">2dp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="backgroundTint">#3D4C5B</item>
+        <item name="cornerRadius">10dp</item>
+    </style>
+    <style name="ColetorAction" parent="Widget.MaterialComponents.Button">
+        <item name="android:layout_height">58dp</item>
+        <item name="android:minHeight">58dp</item>
+        <item name="android:layout_margin">3dp</item>
+        <item name="android:padding">2dp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="cornerRadius">10dp</item>
+    </style>
+</resources>

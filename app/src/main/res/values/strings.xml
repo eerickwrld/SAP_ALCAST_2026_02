@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">SAP</string>
+    <string name="status_loading">SAP • Carregando&#8230;</string>
+    <string name="status_network_available">SAP • Rede disponível</string>
+    <string name="status_no_network">SAP • Sem rede</string>
+    <string name="status_load_failed">SAP • Falha de carregamento</string>
+    <string name="status_ssl_allowed">SAP • Conexão SSL liberada</string>
+    <string name="status_logging_off">SAP • Encerrando sessão&#8230;</string>
+    <string name="tab_1">Aba 1</string>
+    <string name="tab_2">Aba 2</string>
+</resources>
