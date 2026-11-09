@@ -66,3 +66,4 @@ app/src/main/java/com/example/appar/
 
 - **Desenvolvedores**: Erick Jaboinski e Marcos Gustavo de Lima
 - **Copyright**: © 2026 Erick Jaboinski. Todos os direitos reservados.
+- **Auto-Update Host**: Vercel (https://sapalcast2026.vercel.app)
