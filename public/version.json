@@ -1,7 +1,7 @@
 {
   "versionCode": 7,
-  "versionName": "3.4 • Peridoto",
-  "apkUrl": "https://github.com/eerickwrld/SAP_ALCAST_2026_02/releases/download/v3.4/app-debug.apk",
-  "releaseNotes": "Versão 3.4 • Peridoto: Correção do erro ERR_CACHE_MISS ao voltar e blindagem contra erros de autenticação SAML2.",
+  "versionName": "3.5 • Peridoto",
+  "apkUrl": "https://github.com/eerickwrld/SAP_ALCAST_2026_02/releases/download/v3.5/app-debug.apk",
+  "releaseNotes": "Versão 3.5 • Peridoto: Vibração tátil no botão confirmar, proteção contra fechar o app por engano e correções no voltar.",
   "forceUpdate": false
 }
