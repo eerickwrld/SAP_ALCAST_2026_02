@@ -18,20 +18,42 @@ O **SAP ALCAST MOBILE** foi desenvolvido para proporcionar uma experiência flui
 
 - 🔑 **Isolamento de Sessão e Cookies**:
   - Mecanismo exclusivo de gerenciamento de cookies por aba (`TabCookieManager`), permitindo que cada aba mantenha sua própria sessão no servidor SAP NetWeaver sem que uma aba desconecte a outra.
+  - Blindagem de autenticação SAML 2.0 / SSO contra expiração de tokens e loops de redirecionamento.
 
 - 📡 **Atualizações Automáticas OTA (Over-The-Air)**:
   - Verificação silenciosa e automática de novas versões ao abrir o aplicativo (ou sob demanda via menu).
   - Download em segundo plano com barra de progresso em tempo real e instalação nativa via `FileProvider`.
   - Integração contínua entre **GitHub Releases** (armazenamento de APKs) e **Vercel** (distribuição e manifesto de versão).
 
-- 🛡️ **Suporte a Certificado SSL Corporativo**:
-  - Tratamento nativo de conexão para ambientes de intranet corporativa com certificados SSL internos.
+- 🔋 **Monitores de Bateria e Wi-Fi em Tempo Real**:
+  - Indicador visual do nível exato de bateria e status de carregamento no topo da tela, com alertas visuais para bateria fraca.
+  - Monitoramento contínuo de conectividade Wi-Fi (`Wi-Fi OK` / `Sem Wi-Fi`) para prevenir perda de apontamentos em pontos cegos da fábrica.
+
+- 🎯 **Auto-Foco Inteligente no Leitor (Barcode Ready)**:
+  - Posicionamento e seleção automática do cursor no primeiro campo editável da tela do SAP assim que a página carrega, eliminando a necessidade de tocar na tela antes de bipar etiquetas.
+
+- 📳 **Feedback Tátil & Proteção de Saída**:
+  - Resposta por vibração física (*Haptic Feedback*) ao acionar o botão de confirmação.
+  - Bloqueio de saída acidental (*Double back to exit*), prevenindo que o operador feche o aplicativo involuntariamente.
+
+- 🛡️ **Blindagem contra `ERR_CACHE_MISS`**:
+  - Tratamento de `onFormResubmission` e política `LOAD_CACHE_ELSE_NETWORK`, permitindo voltar no histórico de telas e formulários POST do SAP com reenvio transparente e sem travar.
 
 - 🔍 **Ajuste de Zoom e Escala de Texto**:
-  - Opções de zoom configuráveis (85%, 100%, 115%, 145%) persistidas nas preferências do aplicativo para facilitar a visualização em coletores com telas de tamanhos variados.
+  - Opções de zoom configuráveis (85%, 100%, 115%, 160%) persistidas nas preferências do aplicativo para facilitar a visualização em coletores com telas de tamanhos variados.
 
 - ⚡ **Teclas de Ação Rápida**:
   - Botão de confirmação de campo focado (Enter físico), recarregamento da página e menu rápido de configurações.
+
+---
+
+## 💎 Versão Atual: `v3.7 • Cristal` (Build 10)
+
+As versões do aplicativo são batizadas com codinomes de pedras preciosas:
+- **v3.7 • Cristal** (Build 10): Auto-Foco inteligente no leitor de código de barras e blindagem definitiva de cache no voltar.
+- **v3.6 • Berilo** (Build 9): Indicadores visuais de nível de Bateria e status do Wi-Fi no topo do app.
+- **v3.5 • Peridoto** (Build 8): Vibração tátil no botão confirmar e proteção contra saída acidental do SAP.
+- **v3.3 / v3.4**: Esteira completa de Auto-Update OTA via Vercel e GitHub Releases.
 
 ---
 
@@ -50,19 +72,19 @@ O projeto é estruturado segundo os princípios do **Clean Code** e **Responsabi
 ```
 app/src/main/java/com/example/appar/
  ├── data/
- │    └── PreferencesRepository.kt   # Leitura e escrita da escala de texto em SharedPreferences (85%, 100%, 115%, 145%)
+ │    └── PreferencesRepository.kt   # Leitura e escrita da escala de texto em SharedPreferences (85%, 100%, 115%, 160%)
  ├── ui/
- │    └── AppDialogs.kt              # Construtor de caixas de diálogo e menu principal
+ │    └── AppDialogs.kt              # Construtor de caixas de diálogo, menu principal e tela "Sobre o Aplicativo"
  ├── update/
  │    └── AppUpdateManager.kt        # Consulta OTA ao version.json, download de APK e acionamento do instalador nativo
  ├── util/
  │    ├── NetworkUtils.kt            # Verificação do status de rede e conectividade
  │    └── UrlValidator.kt            # Sanitização e validação segura da URL do SAP
  ├── web/
- │    ├── SapSessionManager.kt       # Configurações do WebView e procedimentos de logoff
- │    ├── SapWebViewClient.kt        # Gerenciamento de eventos de página e liberação de SSL
- │    └── TabCookieManager.kt        # Isolamento de cookies e sessão por aba
- └── MainActivity.kt                 # Controladora principal com ViewBinding, Abas Duplas e ciclo do Auto-Update
+ │    ├── SapSessionManager.kt       # Configurações do WebView (LOAD_CACHE_ELSE_NETWORK) e procedimentos de logoff
+ │    ├── SapWebViewClient.kt        # Gerenciamento de eventos de página, auto-foco, liberação de SSL e form resubmission
+ │    └── TabCookieManager.kt        # Isolamento de cookies e sessão por aba com suporte a SAML2
+ └── MainActivity.kt                 # Controladora principal com Abas Duplas, Bateria/Wi-Fi, Haptic Feedback e Auto-Update
 ```
 
 Para detalhes aprofundados sobre a infraestrutura em nuvem e o fluxo DevOps, consulte o documento [ARQUITETURA_E_DEVOPS.md](ARQUITETURA_E_DEVOPS.md).
@@ -75,11 +97,12 @@ Para detalhes aprofundados sobre a infraestrutura em nuvem e o fluxo DevOps, con
 - **Min SDK**: 24 (Android 7.0 Nougat)
 - **Target SDK**: 35 (Android 15)
 - **JVM Compatibility**: Java 11
-- **Recursos Android**: AndroidX, Material Components, View Binding, FileProvider
+- **Recursos Android**: AndroidX, Material Components, View Binding, FileProvider, Haptic Feedback, Network/Battery APIs
 
 ---
 
 ## 👨‍💻 Créditos e Direitos Autorais
 
 - **Desenvolvedores**: Erick Jaboinski e Marcos Gustavo de Lima
+- **Organização**: Alcast do Brasil S.A.
 - **Copyright**: © 2026 Erick Jaboinski. Todos os direitos reservados.
