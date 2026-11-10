@@ -69,6 +69,15 @@ class SapWebViewClient(
         listener.onSslBypassed(tabIndex)
     }
 
+    override fun onFormResubmission(
+        view: WebView?,
+        dontResend: android.os.Message?,
+        resend: android.os.Message?
+    ) {
+        // Resolve o erro ERR_CACHE_MISS ao clicar em Voltar em páginas geradas por formulários POST do SAP
+        resend?.sendToTarget()
+    }
+
     override fun onPageFinished(view: WebView?, url: String?) {
         if (clearHistoryPending) {
             view?.clearHistory()

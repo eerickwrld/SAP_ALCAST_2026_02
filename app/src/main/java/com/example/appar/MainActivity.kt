@@ -176,9 +176,22 @@ class MainActivity : AppCompatActivity(), SapWebViewClient.Listener, AppDialogs.
     }
 
     private fun navigateBack() {
-        if (activeWebView.canGoBack()) {
-            activeWebView.goBack()
+        if (!activeWebView.canGoBack()) return
+
+        val history = activeWebView.copyBackForwardList()
+        val currentIndex = history.currentIndex
+        if (currentIndex > 0) {
+            val prevUrl = history.getItemAtIndex(currentIndex - 1)?.url.orEmpty()
+            // Se a tela anterior for o endpoint de autenticação do SAML2/IdP, voltar mais um passo
+            // para evitar o erro de reenvio de token expirado do SAML2
+            if (prevUrl.contains("saml2", ignoreCase = true) || prevUrl.contains("sso", ignoreCase = true)) {
+                if (currentIndex > 1) {
+                    activeWebView.goBackOrForward(-2)
+                    return
+                }
+            }
         }
+        activeWebView.goBack()
     }
 
     private fun confirmFocusedField() {

@@ -106,6 +106,9 @@ class TabCookieManager {
             if (keyVal.isNotEmpty()) {
                 val key = keyVal[0].trim()
                 if (key.startsWith("SAP_SESSIONID", ignoreCase = true) ||
+                    key.startsWith("saml2", ignoreCase = true) ||
+                    key.startsWith("sp-cert", ignoreCase = true) ||
+                    key.contains("saml", ignoreCase = true) ||
                     key.equals("MYSAPSSO2", ignoreCase = true)
                 ) {
                     cookieManager.setCookie(
