@@ -1,7 +1,7 @@
 {
-  "versionCode": 4,
-  "versionName": "3.1-teste-auto-update",
-  "apkUrl": "https://github.com/eerickwrld/SAP_ALCAST_2026_02/releases/download/v3.1/app-debug.apk",
-  "releaseNotes": "Ajuste na escala de texto Extra Grande para 145%. Teste do Auto-Update OTA.",
+  "versionCode": 5,
+  "versionName": "3.2-teste-auto-update",
+  "apkUrl": "https://github.com/eerickwrld/SAP_ALCAST_2026_02/releases/download/v3.2/app-debug.apk",
+  "releaseNotes": "Ajuste na escala de texto Extra Grande para 160%.",
   "forceUpdate": false
 }
