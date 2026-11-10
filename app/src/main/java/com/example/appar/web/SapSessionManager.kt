@@ -35,7 +35,7 @@ class SapSessionManager {
             loadWithOverviewMode = true
             useWideViewPort = true
             textZoom = textScale
-            cacheMode = WebSettings.LOAD_DEFAULT
+            cacheMode = WebSettings.LOAD_CACHE_ELSE_NETWORK
             builtInZoomControls = false
             displayZoomControls = false
             setSupportZoom(false)

@@ -1,7 +1,7 @@
 {
-  "versionCode": 9,
-  "versionName": "3.6 • Berilo",
-  "apkUrl": "https://github.com/eerickwrld/SAP_ALCAST_2026_02/releases/download/v3.6/app-debug.apk",
-  "releaseNotes": "Versão 3.6 • Berilo: Indicadores visuais de nível de Bateria e status do Wi-Fi em tempo real no topo do app.",
+  "versionCode": 10,
+  "versionName": "3.7 • Cristal",
+  "apkUrl": "https://github.com/eerickwrld/SAP_ALCAST_2026_02/releases/download/v3.7/app-debug.apk",
+  "releaseNotes": "Versão 3.7 • Cristal: Blindagem definitiva contra ERR_CACHE_MISS ao voltar e Auto-Foco inteligente no leitor de código de barras.",
   "forceUpdate": false
 }

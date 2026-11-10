@@ -38,6 +38,14 @@ class SapWebViewClient(
         error: WebResourceError?
     ) {
         if (request?.isForMainFrame == true) {
+            val errorCode = error?.errorCode ?: 0
+            // ERROR_CONNECT = -2, ERROR_HOST_LOOKUP = -6, ERROR_TIMEOUT = -8, ERROR_IO = -1
+            // Se for erro de cache/POST resubmission (ERROR_UNKNOWN = -1 ou similar ao voltar), tentar reload automático
+            if (errorCode == -1 || error?.description?.contains("CACHE_MISS", ignoreCase = true) == true) {
+                view?.post { view.reload() }
+                return
+            }
+
             mainFrameFailed = true
             val errorMessage = if (listener.isNetworkAvailable()) {
                 "Não foi possível abrir o SAP. Verifique o servidor ou tente novamente."
@@ -84,6 +92,27 @@ class SapWebViewClient(
             clearHistoryPending = false
         }
         CookieManager.getInstance().flush()
+
+        // Auto-foco inteligente: foca no primeiro campo editável da tela do SAP automaticamente
+        view?.evaluateJavascript(
+            """
+            (function() {
+                try {
+                    var inputs = document.querySelectorAll('input:not([type="hidden"]):not([readonly]):not([disabled])');
+                    for (var i = 0; i < inputs.length; i++) {
+                        var inp = inputs[i];
+                        if (inp.offsetWidth > 0 || inp.offsetHeight > 0) {
+                            inp.focus();
+                            if (inp.type === 'text') { inp.select(); }
+                            break;
+                        }
+                    }
+                } catch(e) {}
+            })();
+            """.trimIndent(),
+            null
+        )
+
         if (!mainFrameFailed) {
             listener.onPageFinished(tabIndex, url)
         }
