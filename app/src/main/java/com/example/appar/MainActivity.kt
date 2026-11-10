@@ -1,6 +1,16 @@
 package com.example.appar
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.content.res.ColorStateList
+import android.graphics.Color
+import android.net.ConnectivityManager
+import android.net.Network
+import android.net.NetworkCapabilities
+import android.net.NetworkRequest
+import android.os.BatteryManager
 import android.os.Bundle
 import android.view.HapticFeedbackConstants
 import android.view.KeyEvent
@@ -45,6 +55,10 @@ class MainActivity : AppCompatActivity(), SapWebViewClient.Listener, AppDialogs.
     private var currentUrlTab2: String = UrlValidator.DEFAULT_SAP_URL
     private var backPressedTimestamp: Long = 0L
 
+    private var batteryReceiver: BroadcastReceiver? = null
+    private var connectivityManager: ConnectivityManager? = null
+    private var networkCallback: ConnectivityManager.NetworkCallback? = null
+
     private val activeWebView: WebView
         get() = if (activeTab == 1) binding.sapWebView1 else binding.sapWebView2
 
@@ -70,6 +84,7 @@ class MainActivity : AppCompatActivity(), SapWebViewClient.Listener, AppDialogs.
         setupWebViews()
         setupListeners()
         setupBackPressedHandler()
+        setupSystemMonitors()
         updateBackButton()
 
         if (savedInstanceState != null) {
@@ -320,6 +335,72 @@ class MainActivity : AppCompatActivity(), SapWebViewClient.Listener, AppDialogs.
         }
     }
 
+    // --- System Status Monitors (Battery & Wi-Fi) ---
+
+    private fun setupSystemMonitors() {
+        // Monitoramento de Bateria
+        batteryReceiver = object : BroadcastReceiver() {
+            override fun onReceive(context: Context?, intent: Intent?) {
+                intent?.let { updateBatteryUI(it) }
+            }
+        }
+        val batteryFilter = IntentFilter(Intent.ACTION_BATTERY_CHANGED)
+        val initialBattery = registerReceiver(batteryReceiver, batteryFilter)
+        initialBattery?.let { updateBatteryUI(it) }
+
+        // Monitoramento de Wi-Fi / Rede
+        connectivityManager = getSystemService(CONNECTIVITY_SERVICE) as? ConnectivityManager
+        networkCallback = object : ConnectivityManager.NetworkCallback() {
+            override fun onAvailable(network: Network) {
+                runOnUiThread { updateWifiUI(isConnected = true) }
+            }
+
+            override fun onLost(network: Network) {
+                runOnUiThread { updateWifiUI(isConnected = false) }
+            }
+        }
+        val networkRequest = NetworkRequest.Builder()
+            .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+            .build()
+        connectivityManager?.registerNetworkCallback(networkRequest, networkCallback as ConnectivityManager.NetworkCallback)
+        updateWifiUI(NetworkUtils.isNetworkAvailable(this))
+    }
+
+    private fun updateBatteryUI(intent: Intent) {
+        val level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1)
+        val scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1)
+        val status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, -1)
+        val isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
+                status == BatteryManager.BATTERY_STATUS_FULL
+
+        if (level >= 0 && scale > 0) {
+            val pct = (level * 100) / scale
+            val icon = if (isCharging) "⚡" else when {
+                pct > 60 -> "🔋"
+                pct > 20 -> "🪫"
+                else -> "⚠️"
+            }
+            binding.txtBattery.text = "$icon $pct%"
+            binding.txtBattery.setTextColor(
+                when {
+                    pct <= 15 && !isCharging -> Color.parseColor("#FF5252") // Vermelho alerta
+                    pct <= 30 && !isCharging -> Color.parseColor("#FFD600") // Amarelo atenção
+                    else -> Color.parseColor("#A0B0C0") // Normal
+                }
+            )
+        }
+    }
+
+    private fun updateWifiUI(isConnected: Boolean) {
+        if (isConnected) {
+            binding.txtWifi.text = "📶 Wi-Fi OK"
+            binding.txtWifi.setTextColor(Color.parseColor("#4CAF50")) // Verde
+        } else {
+            binding.txtWifi.text = "❌ Sem Wi-Fi"
+            binding.txtWifi.setTextColor(Color.parseColor("#FF5252")) // Vermelho
+        }
+    }
+
     // --- Activity Lifecycle ---
 
     override fun onResume() {
@@ -335,6 +416,12 @@ class MainActivity : AppCompatActivity(), SapWebViewClient.Listener, AppDialogs.
     }
 
     override fun onDestroy() {
+        batteryReceiver?.let {
+            try { unregisterReceiver(it) } catch (_: Exception) {}
+        }
+        networkCallback?.let {
+            try { connectivityManager?.unregisterNetworkCallback(it) } catch (_: Exception) {}
+        }
         tabCookieManager.saveActiveTabCookies(UrlValidator.DEFAULT_SAP_URL)
         CookieManager.getInstance().flush()
         super.onDestroy()

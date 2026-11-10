@@ -1,7 +1,7 @@
 {
-  "versionCode": 8,
-  "versionName": "3.5 • Peridoto",
-  "apkUrl": "https://github.com/eerickwrld/SAP_ALCAST_2026_02/releases/download/v3.5/app-debug.apk",
-  "releaseNotes": "Versão 3.5 • Peridoto: Vibração tátil no botão confirmar, proteção contra saída acidental do SAP e correções no voltar.",
+  "versionCode": 9,
+  "versionName": "3.6 • Berilo",
+  "apkUrl": "https://github.com/eerickwrld/SAP_ALCAST_2026_02/releases/download/v3.6/app-debug.apk",
+  "releaseNotes": "Versão 3.6 • Berilo: Indicadores visuais de nível de Bateria e status do Wi-Fi em tempo real no topo do app.",
   "forceUpdate": false
 }
