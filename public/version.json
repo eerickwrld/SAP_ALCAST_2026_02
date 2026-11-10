@@ -1,7 +1,7 @@
 {
-  "versionCode": 5,
-  "versionName": "3.2",
-  "apkUrl": "https://github.com/eerickwrld/SAP_ALCAST_2026_02/releases/download/v3.2/app-debug.apk",
-  "releaseNotes": "Ajuste na escala de texto Extra Grande para 160%.",
+  "versionCode": 6,
+  "versionName": "3.3",
+  "apkUrl": "https://github.com/eerickwrld/SAP_ALCAST_2026_02/releases/download/v3.3/app-debug.apk",
+  "releaseNotes": "Versão 3.3 com escala de texto em 160% e exibição de versão no Sobre.",
   "forceUpdate": false
 }

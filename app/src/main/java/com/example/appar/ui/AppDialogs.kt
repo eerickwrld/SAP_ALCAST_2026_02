@@ -66,10 +66,11 @@ class AppDialogs(private val context: Context) {
             .show()
     }
 
-    fun showAboutDialog() {
+    fun showAboutDialog(versionName: String, versionCode: Long) {
         AlertDialog.Builder(context)
             .setTitle("SAP ALCAST")
-            .setMessage("Interface simplificada para coletores Android com SAP ITS Mobile. A leitura física permanece sob controle do coletor. " +
+            .setMessage("Versão instalada: $versionName (Build $versionCode)\n\n" +
+                    "Interface simplificada para coletores Android com SAP ITS Mobile. A leitura física permanece sob controle do coletor.\n\n" +
                     "Desenvolvido por Erick Jaboinski e Marcos Gustavo de Lima. Copyright © 2026 Erick Jaboinski. Todos os direitos reservados.")
             .setPositiveButton("OK", null)
             .show()

@@ -275,7 +275,10 @@ class MainActivity : AppCompatActivity(), SapWebViewClient.Listener, AppDialogs.
     }
 
     override fun onShowAbout() {
-        appDialogs.showAboutDialog()
+        appDialogs.showAboutDialog(
+            appUpdateManager.getCurrentVersionName(),
+            appUpdateManager.getCurrentVersionCode()
+        )
     }
 
     override fun onLogoffRequested() {
