@@ -11,7 +11,7 @@ android {
         applicationId = "com.example.appar"
         minSdk = 24
         targetSdk = 35
-        versionCode = 7
+        versionCode = 8
         versionName = "3.5 • Peridoto"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
