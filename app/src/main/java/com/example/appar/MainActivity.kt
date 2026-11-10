@@ -2,11 +2,13 @@ package com.example.appar
 
 import android.content.res.ColorStateList
 import android.os.Bundle
+import android.view.HapticFeedbackConstants
 import android.view.KeyEvent
 import android.view.View
 import android.view.WindowManager
 import android.webkit.CookieManager
 import android.webkit.WebView
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -41,6 +43,7 @@ class MainActivity : AppCompatActivity(), SapWebViewClient.Listener, AppDialogs.
     private var tab2Loaded: Boolean = false
     private var currentUrlTab1: String = UrlValidator.DEFAULT_SAP_URL
     private var currentUrlTab2: String = UrlValidator.DEFAULT_SAP_URL
+    private var backPressedTimestamp: Long = 0L
 
     private val activeWebView: WebView
         get() = if (activeTab == 1) binding.sapWebView1 else binding.sapWebView2
@@ -158,7 +161,13 @@ class MainActivity : AppCompatActivity(), SapWebViewClient.Listener, AppDialogs.
                 if (activeWebView.canGoBack()) {
                     navigateBack()
                 } else {
-                    finish()
+                    val currentTime = System.currentTimeMillis()
+                    if (currentTime - backPressedTimestamp < 2000L) {
+                        finish()
+                    } else {
+                        backPressedTimestamp = currentTime
+                        Toast.makeText(this@MainActivity, "Pressione Voltar novamente para sair do SAP", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
         })
@@ -187,7 +196,7 @@ class MainActivity : AppCompatActivity(), SapWebViewClient.Listener, AppDialogs.
             if (prevUrl.contains("saml2", ignoreCase = true) || prevUrl.contains("sso", ignoreCase = true)) {
                 if (currentIndex > 1) {
                     activeWebView.goBackOrForward(-2)
-                    return
+                    return  //sap é uma porcaria
                 }
             }
         }
@@ -195,6 +204,7 @@ class MainActivity : AppCompatActivity(), SapWebViewClient.Listener, AppDialogs.
     }
 
     private fun confirmFocusedField() {
+        binding.btnConfirmar.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP)
         activeWebView.requestFocus()
         activeWebView.dispatchKeyEvent(KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER))
         activeWebView.dispatchKeyEvent(KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_ENTER))
