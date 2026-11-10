@@ -1,6 +1,6 @@
 {
   "versionCode": 5,
-  "versionName": "3.2-teste-auto-update",
+  "versionName": "3.2",
   "apkUrl": "https://github.com/eerickwrld/SAP_ALCAST_2026_02/releases/download/v3.2/app-debug.apk",
   "releaseNotes": "Ajuste na escala de texto Extra Grande para 160%.",
   "forceUpdate": false
