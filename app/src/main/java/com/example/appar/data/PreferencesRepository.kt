@@ -13,13 +13,16 @@ class PreferencesRepository(context: Context) {
     companion object {
         private const val PREFS_NAME = "appar_interface"
         private const val KEY_TEXT_SCALE = "text_scale"
-        const val DEFAULT_SCALE = 100
-        val AVAILABLE_SCALES = intArrayOf(85, 100, 115, 160)
+        const val DEFAULT_SCALE = 160
+        val AVAILABLE_SCALES = intArrayOf(85, 100, 120, 140, 160, 180, 200)
         val SCALE_LABELS = arrayOf(
-            "Compacto • 85%",
+            "Pequeno • 85%",
             "Normal • 100%",
-            "Maior • 115%",
-            "Extra grande • 160%"
+            "Médio • 120%",
+            "Grande • 140%",
+            "Muito grande • 160%",
+            "Extra grande • 180%",
+            "Máximo • 200%"
         )
     }
 }

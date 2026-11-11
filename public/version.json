@@ -1,7 +1,7 @@
 {
-  "versionCode": 10,
-  "versionName": "3.7 • Cristal",
-  "apkUrl": "https://github.com/eerickwrld/SAP_ALCAST_2026_02/releases/download/v3.7/app-debug.apk",
-  "releaseNotes": "Versão 3.7 • Cristal: Blindagem definitiva contra ERR_CACHE_MISS ao voltar e Auto-Foco inteligente no leitor de código de barras.",
+  "versionCode": 11,
+  "versionName": "3.8 • Topázio",
+  "apkUrl": "https://github.com/eerickwrld/SAP_ALCAST_2026_02/releases/download/v3.8/app-debug.apk",
+  "releaseNotes": "Versão 3.8 • Topázio: Zoom Dinâmico Inteligente (100% perfeito no login Microsoft 365 e escala ampliada de até 200% dentro do SAP).",
   "forceUpdate": false
 }

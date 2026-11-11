@@ -105,10 +105,12 @@ class MainActivity : AppCompatActivity(), SapWebViewClient.Listener, AppDialogs.
     }
 
     private fun setupWebViews() {
-        sessionManager.configureDefaults(binding.sapWebView1, prefsRepository.textScale)
+        val initialScale1 = if (isLoginOrSsoUrl(currentUrlTab1)) 100 else prefsRepository.textScale
+        sessionManager.configureDefaults(binding.sapWebView1, initialScale1)
         binding.sapWebView1.webViewClient = clientTab1
 
-        sessionManager.configureDefaults(binding.sapWebView2, prefsRepository.textScale)
+        val initialScale2 = if (isLoginOrSsoUrl(currentUrlTab2)) 100 else prefsRepository.textScale
+        sessionManager.configureDefaults(binding.sapWebView2, initialScale2)
         binding.sapWebView2.webViewClient = clientTab2
     }
 
@@ -146,6 +148,7 @@ class MainActivity : AppCompatActivity(), SapWebViewClient.Listener, AppDialogs.
                 }
             }
 
+            applyDynamicZoom(activeWebView, activeWebView.url)
             updateTabButtonsUI(tabIndex)
             updateStatusAndNavigation()
         }
@@ -252,6 +255,9 @@ class MainActivity : AppCompatActivity(), SapWebViewClient.Listener, AppDialogs.
         if (!url.isNullOrEmpty()) {
             if (tabIndex == 1) currentUrlTab1 = url else currentUrlTab2 = url
         }
+        val targetWebView = if (tabIndex == 1) binding.sapWebView1 else binding.sapWebView2
+        applyDynamicZoom(targetWebView, url)
+
         if (tabIndex == activeTab) {
             binding.loadingIndicator.visibility = View.VISIBLE
             binding.errorPanel.visibility = View.GONE
@@ -262,6 +268,9 @@ class MainActivity : AppCompatActivity(), SapWebViewClient.Listener, AppDialogs.
 
     override fun onPageFinished(tabIndex: Int, url: String?) {
         tabCookieManager.updateCookiesForTab(tabIndex, UrlValidator.DEFAULT_SAP_URL)
+        val targetWebView = if (tabIndex == 1) binding.sapWebView1 else binding.sapWebView2
+        applyDynamicZoom(targetWebView, url)
+
         if (tabIndex == activeTab) {
             binding.loadingIndicator.visibility = View.GONE
             updateStatusAndNavigation()
@@ -288,6 +297,31 @@ class MainActivity : AppCompatActivity(), SapWebViewClient.Listener, AppDialogs.
         return NetworkUtils.isNetworkAvailable(this)
     }
 
+    // --- Dynamic Zoom Management (100% on Login/SSO, Custom scale on SAP ITS Mobile) ---
+
+    private fun applyDynamicZoom(webView: WebView, url: String?) {
+        val isLogin = isLoginOrSsoUrl(url)
+        val targetScale = if (isLogin) 100 else prefsRepository.textScale
+        if (webView.settings.textZoom != targetScale) {
+            webView.settings.textZoom = targetScale
+        }
+    }
+
+    private fun isLoginOrSsoUrl(url: String?): Boolean {
+        if (url.isNullOrBlank()) return false
+        val lower = url.lowercase()
+        return lower.contains("login.microsoftonline") ||
+                lower.contains("login.microsoft") ||
+                lower.contains("login.live.com") ||
+                lower.contains("microsoft") ||
+                lower.contains("msft") ||
+                lower.contains("saml2") ||
+                lower.contains("adfs") ||
+                lower.contains("/sso/") ||
+                lower.contains("oauth") ||
+                lower.contains("signin")
+    }
+
     // --- AppDialogs.MenuCallback Callbacks ---
 
     override fun onReload() {
@@ -297,8 +331,8 @@ class MainActivity : AppCompatActivity(), SapWebViewClient.Listener, AppDialogs.
     override fun onChangeScale() {
         appDialogs.showScaleChooser(prefsRepository.textScale) { newScale ->
             prefsRepository.textScale = newScale
-            binding.sapWebView1.settings.textZoom = newScale
-            binding.sapWebView2.settings.textZoom = newScale
+            applyDynamicZoom(binding.sapWebView1, binding.sapWebView1.url ?: currentUrlTab1)
+            applyDynamicZoom(binding.sapWebView2, binding.sapWebView2.url ?: currentUrlTab2)
         }
     }
 

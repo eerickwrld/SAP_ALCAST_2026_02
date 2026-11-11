@@ -47,9 +47,10 @@ O **SAP ALCAST MOBILE** foi desenvolvido para proporcionar uma experiência flui
 
 ---
 
-## 💎 Versão Atual: `v3.7 • Cristal` (Build 10)
+## 💎 Versão Atual: `v3.8 • Topázio` (Build 11)
 
 As versões do aplicativo são batizadas com codinomes de pedras preciosas:
+- **v3.8 • Topázio** (Build 11): Zoom Dinâmico Inteligente (100% perfeito no login Microsoft 365 / SSO e escala ampliada de até 200% dentro do SAP).
 - **v3.7 • Cristal** (Build 10): Auto-Foco inteligente no leitor de código de barras e blindagem definitiva de cache no voltar.
 - **v3.6 • Berilo** (Build 9): Indicadores visuais de nível de Bateria e status do Wi-Fi no topo do app.
 - **v3.5 • Peridoto** (Build 8): Vibração tátil no botão confirmar e proteção contra saída acidental do SAP.
